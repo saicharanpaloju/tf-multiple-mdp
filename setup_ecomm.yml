@@ -1,0 +1,33 @@
+---
+- name: Install HTTP server & Deploy App
+  hosts: n1
+  become: yes
+
+  tasks:
+  - name: Install HTTPD
+    yum:
+      name: httpd
+      state: present
+
+  - name: Start HTTPD
+    service:
+      name: httpd
+      state: started
+
+  - name: Enable HTTPD
+    service:
+      name: httpd
+      enabled: yes
+
+  - name: Install GIT
+    yum:
+      name: git
+      state: present
+
+  - name: Host Code
+    git:
+      repo: https://github.com/ravi2krishna/ecomm.git
+      dest: /var/www/html
+      force: yes
+...
+
